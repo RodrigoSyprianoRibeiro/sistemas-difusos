@@ -1,0 +1,159 @@
+<div class="widget-box transparent">
+    <div class="widget-header widget-header-flat">
+        <h4 class="widget-title lighter">
+            <i class="ace-icon fa fa-list green"></i>
+            Regras
+        </h4>
+    </div>
+
+    <div class="widget-body">
+        <div class="widget-main no-padding">
+            <div class="row <?php echo count($this->regras) > 0 ? '' : 'hide'; ?>">
+                <table class="table table-striped table-bordered">
+                    <tbody>
+                        <?php foreach($this->regras as $regra): ?>
+                        <tr>
+                            <td><?php echo $regra->descricao; ?></td>
+                            <td class="center">
+                                <a href="" class="red remove-regra" data-rel="tooltip" title="Remover">
+                                    <input type="hidden" value="<?php echo $regra->id; ?>" />
+                                    <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <?php endforeach;?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row <?php echo count($this->regras) > 0 ? 'hide' : ''; ?>">
+                <h4 class="widget-title grey lighter">
+                    <i class="ace-icon fa fa-info"></i>
+                    Nenhuma regra adicionada.
+                </h4>
+            </div>
+
+            <div class="hr hr32 hr-dotted"></div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="well">
+                        <h4 class="green smaller lighter">Nova Regra</h4>
+                        <form id="regra-form" method="post" class="form-horizontal" >
+                            <fieldset>
+                                <div class="form-group col-sm-5">
+                                    <label for="id_termos_antecedentes">Antecedentes:</label>
+                                    <div>
+                                        <select id="id_termos_antecedentes" name="id_termos_antecedentes" multiple="" data-placeholder="Selecione os termos..." required >
+                                            <option value=""></option>
+                                            <?php foreach($this->termosAntecedentes as $termoAntecedente): ?>
+                                                <option value="<?php echo $termoAntecedente->id; ?>"><?php echo $termoAntecedente->variavel." (".$termoAntecedente->nome.") "; ?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <label for="operador">Operador:</label>
+                                    <div>
+                                      <select id="operador" name="operador" disabled >
+                                            <option value=""></option>
+                                            <option value="E">E (Min)</option>
+                                            <option value="OU">OU (Max)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="id_termo_consequente">Conseqüente:</label>
+                                    <div>
+                                        <select id="id_termo_consequente" name="id_termo_consequente" data-placeholder="Selecione o termo..." required >
+                                            <option value=""></option>
+                                            <?php foreach($this->termosConsequentes as $termoConsequente): ?>
+                                                <option value="<?php echo $termoConsequente->id; ?>"><?php echo $termoConsequente->variavel." (".$termoConsequente->nome.") "; ?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                        <div class="row">
+                            <div class="col-sm-5 pull-right">
+                                <h4 class="pull-right">
+                                    <button type="button" class="btn btn-xs btn-success nova-regra">
+                                      <i class="ace-icon fa fa-plus bigger-110"></i>
+                                      Adicionar Regra
+                                    </button>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+  $(".carregando").addClass('hide');
+  $('#regra-form').validate({
+    errorElement: 'div',
+    errorClass: 'help-block',
+    focusInvalid: false,
+    ignore: "",
+    rules: {
+      id_termos_antecedentes: {
+        required: true
+      },
+      operador: {
+        required: function() {
+          return ($('#id_termos_antecedentes').val() !== null && $('#id_termos_antecedentes').val().length > 1);
+        }
+      },
+      id_termo_consequente: {
+        required: true
+      }
+    },
+    messages: {
+      id_termos_antecedentes: "Selecione os termos antecedentes.",
+      operador: "Selecione o operador.",
+      id_termo_consequente: "Selecione o termo conseqüente."
+    },
+    highlight: function (e) {
+      $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+    },
+    success: function (e) {
+      $(e).closest('.form-group').removeClass('has-error');
+      $(e).remove();
+    },
+    errorPlacement: function (error, element) {
+      if(element.is('.select2')) {
+        error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+      }
+      else error.insertAfter(element.parent());
+    },
+    submitHandler: function (form) {
+    },
+    invalidHandler: function (form) {
+    }
+  });
+
+  $("#id_termos_antecedentes").css('width','90%').select2({allowClear:true}).on('change', function(){
+      $(this).closest('#regra-form').validate().element($(this));
+      atualizaCampos();
+  });
+  $("#operador").css('width','90%').select2({allowClear:true,minimumResultsForSearch:-1}).on('change', function(){
+      $(this).closest('#regra-form').validate().element($(this));
+  });
+  $("#id_termo_consequente").css('width','90%').select2({allowClear:true}).on('change', function(){
+      $(this).closest('#regra-form').validate().element($(this));
+  });
+
+  function atualizaCampos() {
+    $('#operador').val('');
+    $('#operador').closest('.form-group').removeClass('has-error');
+    $('#regra-form').validate().element($('#operador'));
+    if ($('#id_termos_antecedentes').val().length > 1) {
+      $('#operador').prop('disabled', false);
+    } else {
+      $('#operador').prop('disabled', true);
+    }
+  };
+</script>

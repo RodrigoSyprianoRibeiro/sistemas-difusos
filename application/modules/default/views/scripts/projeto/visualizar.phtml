@@ -1,0 +1,125 @@
+<input type="hidden" id="id_projeto" value="<?php echo $this->projeto->id; ?>" />
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="page-content">
+
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <div class="space-6"></div>
+
+                    <div class="row">
+                        <div class="col-sm-10 col-sm-offset-1">
+
+                            <div class="widget-box transparent">
+                                <div class="widget-header widget-header-large">
+                                    <h3 class="widget-title grey lighter">
+                                        <i class="ace-icon fa fa-graduation-cap green"></i>
+                                        <b><?php echo $this->projeto->nome; ?>: </b>
+                                        <?php echo $this->projeto->descricao; ?>
+                                    </h3>
+                                </div>
+                                <div class="widget-body">
+                                    <div class="widget-main">
+
+                                        <div id="fuelux-wizard-container">
+                                            <div>
+                                                <ul class="steps">
+                                                    <li data-step="1" class="active">
+                                                        <span class="step">1</span>
+                                                        <span class="title">Variáveis</span>
+                                                    </li>
+
+                                                    <li data-step="2">
+                                                        <span class="step">2</span>
+                                                        <span class="title">Termos</span>
+                                                    </li>
+
+                                                    <li data-step="3">
+                                                        <span class="step">3</span>
+                                                        <span class="title">Regras</span>
+                                                    </li>
+
+                                                    <li data-step="4">
+                                                        <span class="step">4</span>
+                                                        <span class="title">Simulação</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <hr />
+
+                                            <div class="step-content pos-rel">
+
+                                                <div class="step-pane active" data-step="1">
+                                                    <div class="row">
+                                                        <div id="variaveis" class="col-sm-10 col-sm-offset-1">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="step-pane" data-step="2">
+                                                    <div class="row">
+                                                        <div id="termos" class="col-sm-10 col-sm-offset-1">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="step-pane" data-step="3">
+                                                    <div class="row">
+                                                        <div id="regras" class="col-sm-10 col-sm-offset-1">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="step-pane" data-step="4">
+                                                    <div class="row">
+                                                        <div id="simular" class="col-sm-10 col-sm-offset-1">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="wizard-actions">
+                                            <button class="btn btn-prev">
+                                                <i class="ace-icon fa fa-arrow-left"></i>
+                                                Anterior
+                                            </button>
+
+                                            <button class="btn btn-success btn-next" data-last="Simular">
+                                                Próximo
+                                                <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+                                            </button>
+                                        </div>
+
+                                    </div><!-- /.widget-main -->
+                                </div><!-- /.widget-body -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hr hr32 hr-dotted"></div>
+
+                    <div class="row center">
+                        <div class="col-sm-12">
+                            <div class="clearfix form-actions">
+                                <div class="col-sm-10 col-sm-offset-1">
+                                    <a href="projeto">
+                                        <button class="btn" type="button">
+                                            <i class="ace-icon fa fa-undo bigger-110"></i>
+                                            Projetos
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+
+        </div><!-- /.page-content -->
+    </div>
+</div><!-- /.main-content -->

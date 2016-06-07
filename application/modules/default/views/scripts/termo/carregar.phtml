@@ -1,0 +1,110 @@
+<input type="hidden" id="id_variavel" value="" />
+
+<div class="widget-box transparent">
+    <div class="widget-header widget-header-flat">
+        <h4 class="widget-title lighter">
+            <i class="ace-icon fa fa-list green"></i>
+            Termos
+        </h4>
+    </div>
+
+    <div class="widget-body">
+        <div class="widget-main no-padding">
+
+            <?php foreach($this->variaveis as $variavel): ?>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="widget-box transparent">
+                        <div class="widget-header widget-header-flat">
+                            <h4 class="widget-title lighter <?php echo $variavel->objetiva == 1 ? 'red' : 'blue'; ?>">
+                                <i class="ace-icon fa <?php echo $variavel->objetiva == 1 ? 'fa-check-circle-o red' : 'fa-circle-o blue'; ?>"></i>
+                                <b><?php echo $variavel->nome; ?> (<?php echo $variavel->unidade_medida; ?>): </b> <?php echo $variavel->inicio_universo." a ".$variavel->fim_universo; ?>
+                            </h4>
+
+                            <div class="widget-toolbar">
+                                <a href="#" data-action="collapse">
+                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main no-padding">
+                                <div class="row <?php echo count($variavel->termos) > 0 ? '' : 'hide'; ?>">
+                                    <table class="table table-striped table-bordered">
+                                        <thead class="thin-border-bottom">
+                                            <tr>
+                                                <th>Nome</th>
+                                                <th class="center">Suporte</th>
+                                                <th class="center">Núcleo</th>
+                                                <th class="center"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach($variavel->termos as $termo): ?>
+                                            <tr>
+                                                <td><?php echo $termo->nome; ?></td>
+                                                <td class="center"><?php echo $termo->inicio_suporte." a ".$termo->fim_suporte; ?></td>
+                                                <td class="center"><?php echo $termo->inicio_nucleo." a ".$termo->fim_nucleo; ?></td>
+                                                <td class="center">
+                                                    <a href="" class="red remove-termo" data-rel="tooltip" title="Remover">
+                                                        <input type="hidden" value="<?php echo $termo->id; ?>" />
+                                                        <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <?php endforeach;?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row <?php echo count($variavel->termos) > 0 ? 'hide' : ''; ?>">
+                                    <h4 class="widget-title grey lighter">
+                                        <i class="ace-icon fa fa-info"></i>
+                                        Nenhum termo adicionado.
+                                    </h4>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-5 pull-right">
+                                        <h4 class="pull-right">
+                                            <button type="button" class="btn btn-xs btn-success novo-termo">
+                                                <input type="hidden" value="<?php echo $variavel->id; ?>" />
+                                                <i class="ace-icon fa fa-plus bigger-110"></i>
+                                                Adicionar Termo
+                                            </button>
+                                        </h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div id="<?php echo $variavel->id; ?>" class="grafico-variavel grafico-variavel-<?php echo $variavel->id; ?>"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- /.widget-box -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+
+            <div class="hr hr32 hr-dotted"></div>
+            <?php endforeach;?>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+  $(".grafico-variavel").each( function(index, value) {
+    var id = $(this).attr("id");
+    $.ajax({
+      dataType: "json",
+      type: "POST",
+      url: "/variavel/getdadosgrafico",
+      data: {id: id},
+      async: false,
+      success: function(response){
+        geraGraficoLineBasic("grafico-variavel-"+id, response.variavel, response.min, response.max, response.series);
+      }
+    });
+  });
+  $('[data-rel=tooltip]').tooltip();
+  $(".carregando").addClass('hide');
+</script>

@@ -1,0 +1,63 @@
+<div class="widget-box transparent">
+    <div class="widget-header widget-header-flat">
+        <h4 class="widget-title lighter">
+            <i class="ace-icon fa fa-list green"></i>
+            Variáveis
+        </h4>
+    </div>
+
+    <div class="widget-body">
+        <div class="widget-main no-padding">
+            <div class="row <?php echo count($this->variaveis) > 0 ? '' : 'hide'; ?>">
+                <table class="table table-striped table-bordered">
+                    <thead class="thin-border-bottom">
+                        <tr>
+                            <th>Nome</th>
+                            <th class="center">Universo</th>
+                            <th class="center">Unidade Medida</th>
+                            <th class="center">Objetiva</th>
+                            <th class="center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($this->variaveis as $variavel): ?>
+                        <tr>
+                            <td class="<?php echo $variavel->objetiva == 1 ? 'red' : 'blue'; ?>"><?php echo $variavel->nome; ?></td>
+                            <td class="center <?php echo $variavel->objetiva == 1 ? 'red' : 'blue'; ?>"><?php echo $variavel->inicio_universo." a ".$variavel->fim_universo; ?></td>
+                            <td class="center <?php echo $variavel->objetiva == 1 ? 'red' : 'blue'; ?>"><?php echo $variavel->unidade_medida; ?></td>
+                            <td class="center <?php echo $variavel->objetiva == 1 ? 'red' : 'blue'; ?>"><i class="ace-icon fa <?php echo $variavel->objetiva == 1 ? 'fa-check-circle-o' : 'fa-circle-o'; ?>"></i></td>
+                            <td class="center">
+                                <a href="" class="red remove-variavel" data-rel="tooltip" title="Remover">
+                                    <input type="hidden" value="<?php echo $variavel->id; ?>" />
+                                    <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <?php endforeach;?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row <?php echo count($this->variaveis) > 0 ? 'hide' : ''; ?>">
+                <h4 class="widget-title grey lighter">
+                    <i class="ace-icon fa fa-info"></i>
+                    Nenhuma variável adicionada.
+                </h4>
+            </div>
+            <div class="row">
+                <div class="col-sm-5 pull-right">
+                    <h4 class="pull-right">
+                        <button type="button" class="btn btn-xs btn-success nova-variavel">
+                            <i class="ace-icon fa fa-plus bigger-110"></i>
+                            Adicionar Variável
+                        </button>
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+  $('[data-rel=tooltip]').tooltip();
+  $(".carregando").addClass('hide');
+</script>
