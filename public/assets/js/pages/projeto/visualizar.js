@@ -480,7 +480,7 @@ jQuery(function($) {
     var variaveis = [];
     $(".valor-variaveis").each( function(index, value) {
       var id = parseInt($(this).attr("id").replace('valor-', ''));
-      variaveis[""+id+""] = parseFloat($(this).val());
+      variaveis[id] = parseFloat($(this).val());
     });
     var dados = {
       'id_projeto' : $('#id_projeto').val(),

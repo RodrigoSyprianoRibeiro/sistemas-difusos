@@ -3,7 +3,7 @@
 class Aplicacao_Plugins_Util extends Zend_Controller_Plugin_Abstract
 {
     public static function calcularPertinencia($valor, $termo) {
-        $pertinencia = null;
+        $pertinencia = 0;
         if ($valor >= $termo->inicio_suporte && $valor <= $termo->fim_suporte) {
             if ($valor >= $termo->inicio_nucleo && $valor <= $termo->fim_nucleo) {
                 $pertinencia = 1;

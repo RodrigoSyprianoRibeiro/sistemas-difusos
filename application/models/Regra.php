@@ -41,7 +41,8 @@ class Application_Model_Regra extends Application_Model_Abstract {
                ->from($this->_dbTable)
                ->join(array('t'=>'termo'),
                       't.id = regra.id_termo_consequente',
-                      't.nome AS termo_consequente')
+                      array('t.id AS id_termo_consequente',
+                            't.nome AS termo_consequente'))
                ->join(array('v'=>'variavel'),
                       'v.id = t.id_variavel',
                       'v.nome AS variavel')

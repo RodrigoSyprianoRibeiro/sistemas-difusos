@@ -27,48 +27,37 @@ class Application_Model_Projeto extends Application_Model_Abstract {
     }
 
     public function inferir(array $data) {
+        $modelVariavel = new Application_Model_Variavel();
+        $modelTermo = new Application_Model_Termo();
+        $modelRegra = new Application_Model_Regra();
+        $modelRegraTermoAntecedente = new Application_Model_RegraTermoAntecedente();
 
         $idProjeto = $data['id_projeto'];
         $valoresVariaveis = array_filter($data['variaveis']);
 
-        echo "<pre>";
-        print_r($valoresVariaveis);
-        die();
+        $regras = $modelRegra->getRegras($idProjeto);
 
-        $modelVariavel = new Application_Model_Variavel();
-        $modelTermo = new Application_Model_Termo();
+        $retorno = array();
+        foreach ($regras as $regra) {
+            $termosAntecedentes = $modelRegraTermoAntecedente->getTermosAntecedentes($regra->id);
 
-        $variaveis = $modelVariavel->getVariaveis($idProjeto);
-
-        foreach ($variaveis as $variavel) {
-            $termos = $modelTermo->getTermos($variavel->id);
-
-
-        }
-
-
-
-        $series = array();
-        $escalaTermos = array();
-        foreach ($termos as $termo) {
-            $escalaTermos['name'] = $termo->nome;
-            for ($valor = $variavel->inicio_universo; $valor <= $variavel->fim_universo; $valor++) {
-                $pertinencia = Aplicacao_Plugins_Util::calcularPertinencia($valor, $termo);
-                $escalaTermos['data'][] = array($valor, $pertinencia);
+            $antecedentes = array();
+            $pertinenciasTermosRegra = array();
+            foreach ($termosAntecedentes as $termoAntecedente) {
+                $pertinencia = Aplicacao_Plugins_Util::calcularPertinencia($valoresVariaveis[$termoAntecedente->id_variavel], $termoAntecedente);
+                $pertinenciasTermosRegra[] = $pertinencia;
+                $antecedentes[] = "<b>".$termoAntecedente->variavel." é ".$termoAntecedente->termo_antecedente." (".$pertinencia.")</b>";
             }
-            $series[] = $escalaTermos;
-            $escalaTermos = array();
+            $pertinenciaRegra = $regra->operador === 'E' ? min($pertinenciasTermosRegra) : max($pertinenciasTermosRegra);
+            $retorno[] = (object) array('id' => $regra->id,
+                                        'descricao' => "Se ".implode(" ".$regra->operador." ", $antecedentes)." então <b>".$regra->variavel." é ".$regra->termo_consequente." (".$pertinenciaRegra.")</b>.",
+                                        'id_termo_consequente' => $regra->id_termo_consequente,
+                                        'pertinencia' => $pertinenciaRegra);
         }
 
-        if (empty($series)) {
-            $series = array(array('name' => 'Sem termo', 'data' => null));
-        }
-
-        return array('variavel' => $variavel->nome,
-                     'min' => $variavel->inicio_universo,
-                     'max' => $variavel->fim_universo,
-                     'series' => $series);
-
+        echo "<pre>";
+        print_r($retorno);
+        die();
 
         return true;
     }
