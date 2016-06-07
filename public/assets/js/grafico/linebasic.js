@@ -30,6 +30,13 @@ function geraGraficoLineBasic(id, variavel, min, max, series) {
             shared: true,
             useHTML: true
         },
+        plotOptions: {
+            series: {
+                marker: {
+                    enabled: false
+                }
+            }
+        },
         series: series
     });
 }
