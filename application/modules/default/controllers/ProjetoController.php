@@ -131,7 +131,7 @@ class Default_ProjetoController extends Aplicacao_Controller_Action {
                 }
 
                 $retornoRegras[] = (object) array('id' => $regra->id,
-                                                  'descricao' => "Se ".implode(" ".$regra->operador." ", $antecedentes)." então <b>".$regra->variavel." é ".$regra->termo_consequente."</b>.");
+                                                  'descricao' => "Se ".implode(" ".$regra->operador." ", $antecedentes)." então <b>".$regra->variavel_objetiva." é ".$regra->termo_consequente."</b>.");
             }
             $this->view->regras = $retornoRegras;
         }

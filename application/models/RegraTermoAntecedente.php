@@ -33,7 +33,9 @@ class Application_Model_RegraTermoAntecedente extends Application_Model_Abstract
                ->join(array('v'=>'variavel'),
                       'v.id = t.id_variavel',
                       array('v.nome AS variavel',
-                            'v.id AS id_variavel'))
+                            'v.id AS id_variavel',
+                            'v.inicio_universo',
+                            'v.fim_universo'))
                ->where("regra_termo_antecedente.id_regra = {$idRegra}");
         return $this->_dbTable->fetchAll($select);
     }

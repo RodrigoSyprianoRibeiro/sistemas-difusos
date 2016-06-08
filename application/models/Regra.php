@@ -45,7 +45,8 @@ class Application_Model_Regra extends Application_Model_Abstract {
                             't.nome AS termo_consequente'))
                ->join(array('v'=>'variavel'),
                       'v.id = t.id_variavel',
-                      'v.nome AS variavel')
+                      array('v.id AS id_variavel_objetiva',
+                            'v.nome AS variavel_objetiva'))
                ->where("regra.id_projeto = {$idProjeto}")
                ->order("regra.id ASC");
         return $this->_dbTable->fetchAll($select);

@@ -27,16 +27,16 @@ class Application_Model_Projeto extends Application_Model_Abstract {
     }
 
     public function inferir(array $data) {
-        $modelVariavel = new Application_Model_Variavel();
         $modelTermo = new Application_Model_Termo();
         $modelRegra = new Application_Model_Regra();
         $modelRegraTermoAntecedente = new Application_Model_RegraTermoAntecedente();
-
+        
         $idProjeto = $data['id_projeto'];
         $valoresVariaveis = array_filter($data['variaveis']);
 
         $regras = $modelRegra->getRegras($idProjeto);
 
+        $pertinenciasTermosConsequentes = array();
         $retorno = array();
         foreach ($regras as $regra) {
             $termosAntecedentes = $modelRegraTermoAntecedente->getTermosAntecedentes($regra->id);
@@ -50,12 +50,20 @@ class Application_Model_Projeto extends Application_Model_Abstract {
             }
             $pertinenciaRegra = $regra->operador === 'E' ? min($pertinenciasTermosRegra) : max($pertinenciasTermosRegra);
             $retorno[] = (object) array('id' => $regra->id,
-                                        'descricao' => "Se ".implode(" ".$regra->operador." ", $antecedentes)." então <b>".$regra->variavel." é ".$regra->termo_consequente." (".$pertinenciaRegra.")</b>.",
+                                        'descricao' => "Se ".implode(" ".$regra->operador." ", $antecedentes)." então <b>".$regra->variavel_objetiva." é ".$regra->termo_consequente." (".$pertinenciaRegra.")</b>.",
                                         'id_termo_consequente' => $regra->id_termo_consequente,
                                         'pertinencia' => $pertinenciaRegra);
-        }
 
+            $pertinenciasTermosConsequentes[$regra->id_variavel_objetiva][$regra->id_termo_consequente] = isset($pertinenciasTermosConsequentes[$regra->id_variavel_objetiva][$regra->id_termo_consequente]) ? max(array($pertinenciasTermosConsequentes[$regra->id_variavel_objetiva][$regra->id_termo_consequente], $pertinenciaRegra)) : $pertinenciaRegra;
+        }
+    
+        $termosConsequentes = $modelTermo->getAllTermosConsequentes($idProjeto);
+
+        foreach ($termosConsequentes as $termoConsequente) {
+
+        }
         echo "<pre>";
+        print_r($pertinenciasTermosConsequentes);
         print_r($retorno);
         die();
 

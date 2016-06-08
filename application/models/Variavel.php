@@ -20,15 +20,11 @@ class Application_Model_Variavel extends Application_Model_Abstract {
 
     public function getVariaveis($idProjeto) {
         $select = $this->_dbTable->select();
-        $select->setIntegrityCheck(false)
-               ->from($this->_dbTable)
-               ->join(array('p'=>'projeto'),
-                      'p.id = variavel.id_projeto',
-                      array())
-               ->where("variavel.id_projeto = {$idProjeto}")
-               ->where("variavel.ativo = '1'")
-               ->order(array("variavel.objetiva ASC",
-                             "variavel.nome ASC"));
+        $select->from($this->_dbTable)
+               ->where("id_projeto = {$idProjeto}")
+               ->where("ativo = '1'")
+               ->order(array("objetiva ASC",
+                             "nome ASC"));
         return $this->_dbTable->fetchAll($select);
     }
 

@@ -24,7 +24,9 @@ class Application_Model_Termo extends Application_Model_Abstract {
                ->from($this->_dbTable)
                ->join(array('v'=>'variavel'),
                       'v.id = termo.id_variavel',
-                      array('v.nome AS variavel'))
+                      array('v.nome AS variavel',
+                            'v.inicio_universo',
+                            'v.fim_universo'))
                ->where("termo.id_variavel = {$idVariavel}")
                ->where("termo.ativo = '1'")
                ->order("termo.inicio_suporte ASC");
@@ -37,7 +39,9 @@ class Application_Model_Termo extends Application_Model_Abstract {
                ->from($this->_dbTable)
                ->join(array('v'=>'variavel'),
                       'v.id = termo.id_variavel',
-                      array('v.nome AS variavel'))
+                      array('v.nome AS variavel',
+                            'v.inicio_universo',
+                            'v.fim_universo'))
                ->where("v.id_projeto = {$idProjeto}")
                ->where("v.objetiva = '0'")
                ->where("v.ativo = '1'")
@@ -53,7 +57,9 @@ class Application_Model_Termo extends Application_Model_Abstract {
                ->from($this->_dbTable)
                ->join(array('v'=>'variavel'),
                       'v.id = termo.id_variavel',
-                      array('v.nome AS variavel'))
+                      array('v.nome AS variavel',
+                            'v.inicio_universo',
+                            'v.fim_universo'))
                ->where("v.id_projeto = {$idProjeto}")
                ->where("v.objetiva = '1'")
                ->where("v.ativo = '1'")
