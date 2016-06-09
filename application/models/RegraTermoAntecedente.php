@@ -36,7 +36,10 @@ class Application_Model_RegraTermoAntecedente extends Application_Model_Abstract
                             'v.id AS id_variavel',
                             'v.inicio_universo',
                             'v.fim_universo'))
-               ->where("regra_termo_antecedente.id_regra = {$idRegra}");
+               ->where("regra_termo_antecedente.id_regra = {$idRegra}")
+               ->order(array("v.nome ASC",
+                             "t.inicio_suporte ASC",
+                             "t.fim_suporte ASC"));
         return $this->_dbTable->fetchAll($select);
     }
 }

@@ -494,9 +494,21 @@ jQuery(function($) {
       async: false,
       beforeSend: function(){
         $(".carregando").removeClass('hide');
+        $("#regras-pertinencia").addClass('hide');
       },
       success: function(response) {
-        modalAviso(response);
+        var html = "<tbody>";
+        $.each(response.regras, function (index, value) {
+          html += '<tr><td>' + value + '</td></tr>';
+        });
+        html += "</tbody>";
+        $("#table-regras-pertinencia").html(html);
+        $("#centroide").html(response.centroide + " %");
+        mostraMensagem("Sucesso", "Inferência realizada.");
+      },
+      complete: function(){
+        $("#regras-pertinencia").removeClass('hide');
+        $(".carregando").addClass('hide');
       }
     });
   }

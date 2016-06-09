@@ -29,7 +29,8 @@ class Application_Model_Termo extends Application_Model_Abstract {
                             'v.fim_universo'))
                ->where("termo.id_variavel = {$idVariavel}")
                ->where("termo.ativo = '1'")
-               ->order("termo.inicio_suporte ASC");
+               ->order(array("termo.inicio_suporte ASC",
+                             "termo.fim_suporte ASC"));
         return $this->_dbTable->fetchAll($select);
     }
 
@@ -47,7 +48,8 @@ class Application_Model_Termo extends Application_Model_Abstract {
                ->where("v.ativo = '1'")
                ->where("termo.ativo = '1'")
                ->order(array("v.nome ASC",
-                             "termo.inicio_suporte ASC"));
+                             "termo.inicio_suporte ASC",
+                             "termo.fim_suporte ASC"));
         return $this->_dbTable->fetchAll($select);
     }
 
@@ -65,7 +67,8 @@ class Application_Model_Termo extends Application_Model_Abstract {
                ->where("v.ativo = '1'")
                ->where("termo.ativo = '1'")
                ->order(array("v.nome ASC",
-                             "termo.inicio_suporte ASC"));
+                             "termo.inicio_suporte ASC",
+                             "termo.fim_suporte ASC"));
         return $this->_dbTable->fetchAll($select);
     }
 }

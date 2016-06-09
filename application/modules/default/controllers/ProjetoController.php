@@ -115,25 +115,6 @@ class Default_ProjetoController extends Aplicacao_Controller_Action {
                                                      'termos' => $modelTermo->getTermos($variavel->id));
             }
             $this->view->variaveis = $retornoVariaveis;
-
-            $modelRegra = new Application_Model_Regra();
-            $regras = $modelRegra->getRegras($id);
-
-            $modelRegraTermoAntecedente = new Application_Model_RegraTermoAntecedente();
-
-            $retornoRegras = array();
-            foreach ($regras as $regra) {
-                $termosAntecedentes = $modelRegraTermoAntecedente->getTermosAntecedentes($regra->id);
-
-                $antecedentes = array();
-                foreach ($termosAntecedentes as $termoAntecedente) {
-                    $antecedentes[] = "<b>".$termoAntecedente->variavel." é ".$termoAntecedente->termo_antecedente."</b>";
-                }
-
-                $retornoRegras[] = (object) array('id' => $regra->id,
-                                                  'descricao' => "Se ".implode(" ".$regra->operador." ", $antecedentes)." então <b>".$regra->variavel_objetiva." é ".$regra->termo_consequente."</b>.");
-            }
-            $this->view->regras = $retornoRegras;
         }
     }
 

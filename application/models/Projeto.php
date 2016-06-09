@@ -49,24 +49,11 @@ class Application_Model_Projeto extends Application_Model_Abstract {
                 $antecedentes[] = "<b>".$termoAntecedente->variavel." é ".$termoAntecedente->termo_antecedente." (".$pertinencia.")</b>";
             }
             $pertinenciaRegra = $regra->operador === 'E' ? min($pertinenciasTermosRegra) : max($pertinenciasTermosRegra);
-            $retorno[] = (object) array('id' => $regra->id,
-                                        'descricao' => "Se ".implode(" ".$regra->operador." ", $antecedentes)." então <b>".$regra->variavel_objetiva." é ".$regra->termo_consequente." (".$pertinenciaRegra.")</b>.",
-                                        'id_termo_consequente' => $regra->id_termo_consequente,
-                                        'pertinencia' => $pertinenciaRegra);
-
+            $retorno['regras'][] = "Se ".implode(" ".$regra->operador." ", $antecedentes)." então <b>".$regra->variavel_objetiva." é ".$regra->termo_consequente." (".$pertinenciaRegra.")</b>.";
             $pertinenciasTermosConsequentes[$regra->id_variavel_objetiva][$regra->id_termo_consequente] = isset($pertinenciasTermosConsequentes[$regra->id_variavel_objetiva][$regra->id_termo_consequente]) ? max(array($pertinenciasTermosConsequentes[$regra->id_variavel_objetiva][$regra->id_termo_consequente], $pertinenciaRegra)) : $pertinenciaRegra;
         }
-    
         $termosConsequentes = $modelTermo->getAllTermosConsequentes($idProjeto);
-
-        foreach ($termosConsequentes as $termoConsequente) {
-
-        }
-        echo "<pre>";
-        print_r($pertinenciasTermosConsequentes);
-        print_r($retorno);
-        die();
-
-        return true;
+        $retorno['centroide'] = Aplicacao_Plugins_Util::calcularCentroide($termosConsequentes, $pertinenciasTermosConsequentes);
+        return $retorno;
     }
 }
