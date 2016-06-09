@@ -27,10 +27,11 @@ class Application_Model_Projeto extends Application_Model_Abstract {
     }
 
     public function inferir(array $data) {
+        $modelVariavel = new Application_Model_Variavel();
         $modelTermo = new Application_Model_Termo();
         $modelRegra = new Application_Model_Regra();
         $modelRegraTermoAntecedente = new Application_Model_RegraTermoAntecedente();
-        
+
         $idProjeto = $data['id_projeto'];
         $valoresVariaveis = array_filter($data['variaveis']);
 
@@ -49,11 +50,20 @@ class Application_Model_Projeto extends Application_Model_Abstract {
                 $antecedentes[] = "<b>".$termoAntecedente->variavel." é ".$termoAntecedente->termo_antecedente." (".$pertinencia.")</b>";
             }
             $pertinenciaRegra = $regra->operador === 'E' ? min($pertinenciasTermosRegra) : max($pertinenciasTermosRegra);
-            $retorno['regras'][] = "Se ".implode(" ".$regra->operador." ", $antecedentes)." então <b>".$regra->variavel_objetiva." é ".$regra->termo_consequente." (".$pertinenciaRegra.")</b>.";
             $pertinenciasTermosConsequentes[$regra->id_variavel_objetiva][$regra->id_termo_consequente] = isset($pertinenciasTermosConsequentes[$regra->id_variavel_objetiva][$regra->id_termo_consequente]) ? max(array($pertinenciasTermosConsequentes[$regra->id_variavel_objetiva][$regra->id_termo_consequente], $pertinenciaRegra)) : $pertinenciaRegra;
+
+            $retorno['regras'][] = "Se ".implode(" ".$regra->operador." ", $antecedentes)." então <b>".$regra->variavel_objetiva." é ".$regra->termo_consequente." (".$pertinenciaRegra.")</b>.";
+            $retorno['pertinencias'][$regra->id_termo_consequente] = "<b>".$regra->variavel_objetiva." (".$regra->termo_consequente.") =".$pertinenciasTermosConsequentes[$regra->id_variavel_objetiva][$regra->id_termo_consequente]."</b>.";
         }
         $termosConsequentes = $modelTermo->getAllTermosConsequentes($idProjeto);
         $retorno['centroide'] = Aplicacao_Plugins_Util::calcularCentroide($termosConsequentes, $pertinenciasTermosConsequentes);
+    
+        $dadosGrafico = $modelVariavel->geraDadosGraficos($regra->id_variavel_objetiva, true);
+
+        array_push($dadosGrafico['series'], Aplicacao_Plugins_Util::areaCentroideGrafico($termosConsequentes, $pertinenciasTermosConsequentes));
+        array_push($dadosGrafico['series'], Aplicacao_Plugins_Util::pontoCentroideGrafico($termosConsequentes, $pertinenciasTermosConsequentes, $retorno['centroide']));
+
+        $retorno['grafico'] = $dadosGrafico;
         return $retorno;
     }
 }

@@ -45,6 +45,7 @@ class Default_ProjetoController extends Aplicacao_Controller_Action {
             'assets/js/fuelux/fuelux.spinner.js',
             'assets/js/select2.js',
             'assets/js/highcharts/highcharts.js',
+            'assets/js/highcharts/highcharts-more.js',
             'assets/js/highcharts/modules/exporting.js',
             'assets/js/grafico/linebasic.js',
             'assets/js/pages/projeto/visualizar.js'

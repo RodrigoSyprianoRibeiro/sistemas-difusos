@@ -28,7 +28,7 @@ class Application_Model_Variavel extends Application_Model_Abstract {
         return $this->_dbTable->fetchAll($select);
     }
 
-    public function geraDadosGraficos($idVariavel) {
+    public function geraDadosGraficos($idVariavel, $graficoFinal=false) {
 
         $variavel = $this->find($idVariavel);
 
@@ -39,6 +39,9 @@ class Application_Model_Variavel extends Application_Model_Abstract {
         $escalaTermos = array();
         foreach ($termos as $termo) {
             $escalaTermos['name'] = $termo->nome;
+            if ($graficoFinal === true) {
+                $escalaTermos['enableMouseTracking'] = false;
+            }
             for ($valor = $variavel->inicio_universo; $valor <= $variavel->fim_universo; $valor++) {
                 $pertinencia = Aplicacao_Plugins_Util::calcularPertinencia($valor, $termo);
                 $escalaTermos['data'][] = array($valor, $pertinencia);

@@ -480,7 +480,7 @@ jQuery(function($) {
     var variaveis = [];
     $(".valor-variaveis").each( function(index, value) {
       var id = parseInt($(this).attr("id").replace('valor-', ''));
-      variaveis[id] = parseFloat($(this).val());
+      variaveis[id] = $(this).val() + "";
     });
     var dados = {
       'id_projeto' : $('#id_projeto').val(),
@@ -495,24 +495,48 @@ jQuery(function($) {
       beforeSend: function(){
         $(".carregando").removeClass('hide');
         $("#regras-pertinencia").addClass('hide');
+        $("#table-regras-pertinencia").html("");
+        $("#table-termos-consequentes").html("");
+        $("#centroide").html("?");
       },
       success: function(response) {
-        var html = "<tbody>";
+        var htmlRegras = "<tbody>";
         $.each(response.regras, function (index, value) {
-          html += '<tr><td>' + value + '</td></tr>';
+            htmlRegras += '<tr><td>' + value + '</td></tr>';
         });
-        html += "</tbody>";
-        $("#table-regras-pertinencia").html(html);
+        htmlRegras += "</tbody>";
+        $("#table-regras-pertinencia").html(htmlRegras);
+
+        var htmlTermos = "<tbody>";
+        $.each(response.pertinencias, function (index, value) {
+            htmlTermos += '<tr><td>' + value + '</td></tr>';
+        });
+        htmlTermos += "</tbody>";
+        $("#table-termos-consequentes").html(htmlTermos);
+
         $("#centroide").html(response.centroide + " %");
+        $("#regras-pertinencia").removeClass('hide');
+        montarGrafico(response.grafico);
         mostraMensagem("Sucesso", "Inferência realizada.");
       },
+      error: function(response){
+        modalAviso("Ocorreu algum erro no processo de inferência.");
+      },
       complete: function(){
-        $("#regras-pertinencia").removeClass('hide');
         $(".carregando").addClass('hide');
       }
     });
   }
   // Fim Inferir ///////////////////////////////////////////////////////////////
+
+  // Montar Gráfico ////////////////////////////////////////////////////////////
+  function montarGrafico(response) {
+    $(".grafico-variavel-objetiva").each( function(index, value) {
+        var id = $(this).attr("id");
+        geraGraficoLineBasic("grafico-variavel-objetiva-"+id, response.variavel, response.min, response.max, response.series);
+    });
+  };
+  // Fim Montar Gráfico ////////////////////////////////////////////////////////
 
   function mostraMensagem(title, text) {
     $.gritter.add({
