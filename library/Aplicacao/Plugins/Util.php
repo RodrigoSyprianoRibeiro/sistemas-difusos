@@ -90,11 +90,15 @@ class Aplicacao_Plugins_Util extends Zend_Controller_Plugin_Abstract
                 $pertinencias[] = $pertinenciasTermosConsequentes[$termo->id_variavel][$termo->id];
             }
         }
+        $valorEixoY = 0;
+        if (count($pertinencias) > 0) {
+            $valorEixoY = round((array_sum($pertinencias) / count($pertinencias)) / 3, 2);
+        }
         $scatter = array();
         $scatter['name'] = 'Centróide';
         $scatter['type'] = 'scatter';
         $scatter['marker'] = array('enabled' => true);
-        $scatter['data'][] = array($centroide, round((array_sum($pertinencias) / count($pertinencias)) / 3, 2));
+        $scatter['data'][] = array($centroide, $valorEixoY);
         return $scatter;
     }
 }
