@@ -61,6 +61,7 @@ class Application_Model_Projeto extends Application_Model_Abstract {
         $dadosGrafico = $modelVariavel->geraDadosGraficos($regra->id_variavel_objetiva, true);
 
         array_push($dadosGrafico['series'], Aplicacao_Plugins_Util::areaCentroideGrafico($termosConsequentes, $pertinenciasTermosConsequentes));
+        array_push($dadosGrafico['series'], Aplicacao_Plugins_Util::pontoCentroideGrafico($termosConsequentes, $pertinenciasTermosConsequentes, $retorno['centroide']));
 
         $retorno['grafico'] = $dadosGrafico;
         return $retorno;
