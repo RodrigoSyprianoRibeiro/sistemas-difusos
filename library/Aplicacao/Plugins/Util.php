@@ -87,18 +87,7 @@ class Aplicacao_Plugins_Util extends Zend_Controller_Plugin_Abstract
         $pertinencias = array();
         foreach ($termosConsequentes as $termo) {
             if ($pertinenciasTermosConsequentes[$termo->id_variavel][$termo->id] > 0) {
-
-                for ($i = $termo->inicio_universo; $i <= $termo->fim_universo; $i++) {
-
-                    if ($i >= $termo->inicio_suporte && $i <= $termo->fim_suporte) {
-                        $pertinencia = self::calcularPertinencia($i, $termo);
-                        if ($pertinencia < $pertinenciasTermosConsequentes[$termo->id_variavel][$termo->id]) {
-                            $pertinencias[$i] = $pertinencia;
-                        } else {
-                            $pertinencias[$i] = $pertinenciasTermosConsequentes[$termo->id_variavel][$termo->id];
-                        }
-                    }
-                }
+                $pertinencias[] = $pertinenciasTermosConsequentes[$termo->id_variavel][$termo->id];
             }
         }
         $scatter = array();
@@ -106,7 +95,7 @@ class Aplicacao_Plugins_Util extends Zend_Controller_Plugin_Abstract
         $scatter['type'] = 'scatter';
         $scatter['marker'] = array('enabled' => true);
         $scatter['enableMouseTracking'] = false;
-        $scatter['data'][] = array($centroide, round((array_sum($pertinencias) / count($pertinencias)) / 2, 2));
+        $scatter['data'][] = array($centroide, round((array_sum($pertinencias) / count($pertinencias)) / 3, 2));
         return $scatter;
     }
 }

@@ -147,7 +147,7 @@
   });
 
   function atualizaCampos() {
-    $('#operador').val('');
+    $('#operador').select2('data', null);
     $('#operador').closest('.form-group').removeClass('has-error');
     $('#regra-form').validate().element($('#operador'));
     if ($('#id_termos_antecedentes').val().length > 1) {
