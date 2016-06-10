@@ -42,7 +42,7 @@ class Application_Model_Variavel extends Application_Model_Abstract {
             if ($graficoFinal === true) {
                 $escalaTermos['enableMouseTracking'] = false;
             }
-            for ($valor = $variavel->inicio_universo; $valor <= $variavel->fim_universo; $valor++) {
+            for ($valor = (float) $variavel->inicio_universo; $valor <= (float) $variavel->fim_universo; $valor++) {
                 $pertinencia = Aplicacao_Plugins_Util::calcularPertinencia($valor, $termo);
                 $escalaTermos['data'][] = array($valor, $pertinencia);
             }
