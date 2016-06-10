@@ -15,12 +15,7 @@ function geraGraficoLineBasic(id, variavel, min, max, series) {
             max: 1,
             title: {
                 text: 'Pertinência'
-            },
-            plotLines: [{
-                value: 0,
-                width: 1,
-                color: '#808080'
-            }]
+            }
         },
         tooltip: {
             headerFormat: '<span style="font-size:10px"><b>Valor:</b> {point.key}</span><table>',

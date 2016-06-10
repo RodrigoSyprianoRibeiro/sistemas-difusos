@@ -78,36 +78,8 @@ class Aplicacao_Plugins_Util extends Zend_Controller_Plugin_Abstract
         $area['name'] = 'Área Centróide';
         $area['type'] = 'arearange';
         $area['fillOpacity'] = 0.5;
-        $area['zIndex'] = 1;
         $area['lineWidth'] = 0;
         $area['enableMouseTracking'] = false;
         return $area;
-    }
-
-    public static function pontoCentroideGrafico($termosConsequentes, $pertinenciasTermosConsequentes, $centroide) {
-        $pertinencias = array();
-        foreach ($termosConsequentes as $termo) {
-            if ($pertinenciasTermosConsequentes[$termo->id_variavel][$termo->id] > 0) {
-
-                for ($i = $termo->inicio_universo; $i <= $termo->fim_universo; $i++) {
-
-                    if ($i >= $termo->inicio_suporte && $i <= $termo->fim_suporte) {
-                        $pertinencia = self::calcularPertinencia($i, $termo);
-                        if ($pertinencia < $pertinenciasTermosConsequentes[$termo->id_variavel][$termo->id]) {
-                            $pertinencias[$i] = $pertinencia;
-                        } else {
-                            $pertinencias[$i] = $pertinenciasTermosConsequentes[$termo->id_variavel][$termo->id];
-                        }
-                    }
-                }
-            }
-        }
-        $scatter = array();
-        $scatter['name'] = 'Centróide';
-        $scatter['type'] = 'scatter';
-        $scatter['zoomType'] = 'xy';
-        $scatter['color'] = 'rgba(223, 83, 83, .5)';
-        $scatter['data'] = array($centroide, round(array_sum($pertinencias) / count($pertinencias), 2));
-        return $scatter;
     }
 }
