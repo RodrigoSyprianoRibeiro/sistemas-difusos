@@ -62,7 +62,7 @@ class Aplicacao_Plugins_Util extends Zend_Controller_Plugin_Abstract
         foreach ($termosConsequentes as $termo) {
             if ($pertinenciasTermosConsequentes[$termo->id_variavel][$termo->id] > 0) {
                 
-                for ($i = $termo->inicio_universo; $i <= $termo->fim_universo; $i++) {
+                for ($i = (float) $termo->inicio_universo; $i <= (float) $termo->fim_universo; $i++) {
 
                     if ($i >= $termo->inicio_suporte && $i <= $termo->fim_suporte) {
                         $pertinencia = self::calcularPertinencia($i, $termo);
