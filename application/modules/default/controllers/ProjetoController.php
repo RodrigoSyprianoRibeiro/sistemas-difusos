@@ -24,6 +24,9 @@ class Default_ProjetoController extends Aplicacao_Controller_Action {
         $projeto = $modelProjeto->find($id);
 
         if ($projeto) {
+
+            $this->view->headTitle()->prepend($projeto->nome);
+
             $modelVariavel = new Application_Model_Variavel();
 
             $this->view->variaveis = $modelVariavel->getVariaveis($id);
