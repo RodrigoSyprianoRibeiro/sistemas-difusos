@@ -18,7 +18,7 @@
                         <div class="widget-header widget-header-flat">
                             <h4 class="widget-title lighter <?php echo $variavel->objetiva == 1 ? 'red' : 'blue'; ?>">
                                 <i class="ace-icon fa <?php echo $variavel->objetiva == 1 ? 'fa-check-circle-o red' : 'fa-circle-o blue'; ?>"></i>
-                                <b><?php echo $variavel->nome; ?> (<?php echo $variavel->unidade_medida; ?>): </b> <?php echo $variavel->inicio_universo." a ".$variavel->fim_universo; ?>
+                                <b><?php echo $variavel->nome; ?>: </b> <?php echo $variavel->inicio_universo." ".$variavel->sigla_unidade_medida." a ".$variavel->fim_universo." ".$variavel->sigla_unidade_medida; ?>
                             </h4>
 
                             <div class="widget-toolbar">
@@ -44,8 +44,8 @@
                                             <?php foreach($variavel->termos as $termo): ?>
                                             <tr>
                                                 <td><?php echo $termo->nome; ?></td>
-                                                <td class="center"><?php echo $termo->inicio_suporte." a ".$termo->fim_suporte; ?></td>
-                                                <td class="center"><?php echo $termo->inicio_nucleo." a ".$termo->fim_nucleo; ?></td>
+                                                <td class="center"><?php echo $termo->inicio_suporte." ".$variavel->sigla_unidade_medida." a ".$termo->fim_suporte." ".$variavel->sigla_unidade_medida; ?></td>
+                                                <td class="center"><?php echo $termo->inicio_nucleo." ".$variavel->sigla_unidade_medida." a ".$termo->fim_nucleo." ".$variavel->sigla_unidade_medida; ?></td>
                                                 <td class="center">
                                                     <a href="" class="red remove-termo" data-rel="tooltip" title="Remover">
                                                         <input type="hidden" value="<?php echo $termo->id; ?>" />
@@ -101,7 +101,7 @@
       data: {id: id},
       async: false,
       success: function(response){
-        geraGraficoLineBasic("grafico-variavel-"+id, response.variavel, response.min, response.max, response.series);
+        geraGraficoLineBasic("grafico-variavel-"+id, response.variavel, response.min, response.max, response.series, false);
       }
     });
   });

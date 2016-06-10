@@ -18,19 +18,39 @@ class Application_Model_Variavel extends Application_Model_Abstract {
         return $this->_dbTable->delete(array('id=?'=>$data['id']));
     }
 
+    public function getVariavel($idVariavel) {
+        $select = $this->_dbTable->select();
+        $select->setIntegrityCheck(false)
+            ->from($this->_dbTable)
+            ->join(array('um'=>'unidade_medida'),
+                         'um.id = variavel.id_unidade_medida',
+                   array('um.id AS id_unidade_medida',
+                         'um.nome AS unidade_medida',
+                         'um.sigla AS sigla_unidade_medida'))
+            ->where("variavel.id = {$idVariavel}")
+            ->where("variavel.ativo = '1'");;
+        return $this->_dbTable->fetchRow($select);
+    }
+
     public function getVariaveis($idProjeto) {
         $select = $this->_dbTable->select();
-        $select->from($this->_dbTable)
-               ->where("id_projeto = {$idProjeto}")
-               ->where("ativo = '1'")
-               ->order(array("objetiva ASC",
-                             "nome ASC"));
+        $select->setIntegrityCheck(false)
+               ->from($this->_dbTable)
+               ->join(array('um'=>'unidade_medida'),
+                            'um.id = variavel.id_unidade_medida',
+                      array('um.id AS id_unidade_medida',
+                            'um.nome AS unidade_medida',
+                            'um.sigla AS sigla_unidade_medida'))
+               ->where("variavel.id_projeto = {$idProjeto}")
+               ->where("variavel.ativo = '1'")
+               ->order(array("variavel.objetiva ASC",
+                             "variavel.nome ASC"));
         return $this->_dbTable->fetchAll($select);
     }
 
     public function geraDadosGraficos($idVariavel, $graficoFinal=false) {
 
-        $variavel = $this->find($idVariavel);
+        $variavel = $this->getVariavel($idVariavel);
 
         $modelTermo = new Application_Model_Termo();
         $termos = $modelTermo->getTermos($idVariavel);
@@ -54,7 +74,7 @@ class Application_Model_Variavel extends Application_Model_Abstract {
             $series = array(array('name' => 'Sem termo', 'data' => null));
         }
 
-        return array('variavel' => $variavel->nome,
+        return array('variavel' => array('nome' => $variavel->nome, 'sigla_unidade_medida' => $variavel->sigla_unidade_medida),
                      'min' => $variavel->inicio_universo,
                      'max' => $variavel->fim_universo,
                      'series' => $series);

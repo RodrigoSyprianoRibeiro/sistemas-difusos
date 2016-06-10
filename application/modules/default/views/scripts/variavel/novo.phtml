@@ -28,30 +28,11 @@
                     <div class="form-group col-sm-6">
                         <label for="unidade_medida">Unidade Medida:</label>
                         <div>
-                            <select id="unidade_medida" data-placeholder="Unidade Medida" required >
+                            <select id="id_unidade_medida" data-placeholder="Unidade Medida" required >
                                 <option value=""></option>
-                                <option value="CM">Centímetro (CM)</option>
-                                <option value="M">Metro (M)</option>
-                                <option value="KM">Quilômetro (KM)</option>
-                                <option value="KM/H">Quilômetro por Hora (KM/H)</option>
-                                <option value="CM²">Centímetro Quadrado (CM²)</option>
-                                <option value="M²">Metro Quadrado (M²)</option>
-                                <option value="CM³">Centímetro Cúbico (CM³)</option>
-                                <option value="M³">Metro Cúbico (M³)</option>
-                                <option value="L">Litro (L)</option>
-                                <option value="KG">Quilograma (KG)</option>
-                                <option value="T">Tonelada (T)</option>
-                                <option value="Hz">Hertz (Hz)</option>
-                                <option value="W">Whatt (W)</option>
-                                <option value="A">Ampére (A)</option>
-                                <option value="V">Volt (V)</option>
-                                <option value="N">Newton (N)</option>
-                                <option value="H">Hora (H)</option>
-                                <option value="Min">Minuto (Min)</option>
-                                <option value="S">Segundo (S)</option>
-                                <option value="Cº">Celsius (Cº)</option>
-                                <option value="º">Ângulo (º)</option>
-                                <option value="%">Porcentagem (%)</option>
+                                <?php foreach($this->unidades_medidas as $unidade_medida): ?>
+                                <option value="<?php echo $unidade_medida->id; ?>"><?php echo $unidade_medida->nome." (".$unidade_medida->sigla.")"; ?></option>
+                                <?php endforeach;?>
                             </select>
                         </div>
                     </div>
@@ -78,5 +59,5 @@
   $('#cancelar-variavel').removeClass('disabled');
   $('#inicio_universo').ace_spinner({value:0, min:-1000, step:1, btn_up_class:'btn-info' , btn_down_class:'btn-info'});
   $('#fim_universo').ace_spinner({value:0, min:-1000, step:1, btn_up_class:'btn-info' , btn_down_class:'btn-info'});
-  $("#unidade_medida").css('width','100%').select2({allowClear:true});
+  $("#id_unidade_medida").css('width','100%').select2({allowClear:true});
 </script>

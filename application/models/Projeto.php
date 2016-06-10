@@ -57,6 +57,7 @@ class Application_Model_Projeto extends Application_Model_Abstract {
         }
         $termosConsequentes = $modelTermo->getAllTermosConsequentes($idProjeto);
         $retorno['centroide'] = Aplicacao_Plugins_Util::calcularCentroide($termosConsequentes, $pertinenciasTermosConsequentes);
+        $retorno['unidademedida'] = $regra->sigla_unidade_medida;
     
         $dadosGrafico = $modelVariavel->geraDadosGraficos($regra->id_variavel_objetiva, true);
 

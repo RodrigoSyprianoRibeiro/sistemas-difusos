@@ -4,6 +4,8 @@ class Default_VariavelController extends Aplicacao_Controller_Action {
 
     public function novoAction() {
         $this->_helper->layout->disableLayout();
+        $modelUnidadeMedida = new Application_Model_UnidadeMedida();
+        $this->view->unidades_medidas = $modelUnidadeMedida->getUnidadesMedidas();
     }
 
     public function salvarAction() {
@@ -11,7 +13,7 @@ class Default_VariavelController extends Aplicacao_Controller_Action {
         $this->_helper->viewRenderer->setNoRender(true);
 
         if ($this->_request->isPost()) {
-            $modelVariavel= new Application_Model_Variavel();
+            $modelVariavel = new Application_Model_Variavel();
             if ($modelVariavel->save($this->data)) {
                 echo json_encode(array('title' => '<strong>Sucesso</strong>','text' => 'Variável cadastrada.'));
             } else {
@@ -25,7 +27,7 @@ class Default_VariavelController extends Aplicacao_Controller_Action {
         $this->_helper->viewRenderer->setNoRender(true);
 
         if ($this->_request->isPost()) {
-            $modelVariavel= new Application_Model_Variavel();
+            $modelVariavel = new Application_Model_Variavel();
             $this->data['ativo'] = 0;
             if ($modelVariavel->save($this->data)) {
                 echo json_encode(array('title' => '<strong>Sucesso</strong>','text' => 'Variável removida.'));

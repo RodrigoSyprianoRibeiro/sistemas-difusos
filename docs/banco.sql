@@ -3,6 +3,37 @@ CREATE SCHEMA sistemasdifusos DEFAULT CHARACTER SET utf8 ;
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "-03:00";
 
+CREATE TABLE IF NOT EXISTS unidade_medida (
+  id int(5) NOT NULL AUTO_INCREMENT,
+  nome varchar(200) NOT NULL,
+  sigla varchar(20) NOT NULL
+  CONSTRAINT pk_unidade_medida PRIMARY KEY (id)
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+INSERT INTO unidade_medida (nome, sigla) VALUES
+('Centímetro','CM'),
+('Metro','M'),
+('Quilômetro','KM'),
+('Quilômetro por Hora','KM/H'),
+('Centímetro Quadrado','CM²'),
+('Metro Quadrado','M²'),
+('Centímetro Cúbico','CM³'),
+('Metro Cúbico','M³'),
+('Litro','L'),
+('Quilograma','KG'),
+('Tonelada','T'),
+('Hertz','Hz'),
+('Whatt','W'),
+('Ampére','A'),
+('Volt','V'),
+('Newton','N'),
+('Hora','H'),
+('Minuto','Min'),
+('Segundo','S'),
+('Celsius','Cº'),
+('Ângulo','º'),
+('Porcentagem','%');
+
 CREATE TABLE IF NOT EXISTS projeto (
   id INT(5) NOT NULL AUTO_INCREMENT,
   nome VARCHAR(200) NOT NULL,
@@ -17,11 +48,12 @@ CREATE TABLE IF NOT EXISTS variavel (
   nome VARCHAR(200) NOT NULL,
   inicio_universo DECIMAL(9,2) NOT NULL,
   fim_universo DECIMAL(9,2) NOT NULL,
-  unidade_medida VARCHAR(40) NOT NULL,
+  id_unidade_medida INT(5) NOT NULL,
   objetiva tinyint(1) NOT NULL DEFAULT '1',
   ativo tinyint(1) NOT NULL DEFAULT '1',
   CONSTRAINT pk_variavel PRIMARY KEY (id),
-  CONSTRAINT fk_variavel_projeto FOREIGN KEY (id_projeto) REFERENCES projeto(id)
+  CONSTRAINT fk_variavel_projeto FOREIGN KEY (id_projeto) REFERENCES projeto(id),
+  CONSTRAINT fk_variavel_unidade_medida FOREIGN KEY (id_unidade_medida) REFERENCES unidade_medida(id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 CREATE TABLE IF NOT EXISTS termo (

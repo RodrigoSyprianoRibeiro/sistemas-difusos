@@ -94,7 +94,6 @@ class Aplicacao_Plugins_Util extends Zend_Controller_Plugin_Abstract
         $scatter['name'] = 'Centróide';
         $scatter['type'] = 'scatter';
         $scatter['marker'] = array('enabled' => true);
-        $scatter['enableMouseTracking'] = false;
         $scatter['data'][] = array($centroide, round((array_sum($pertinencias) / count($pertinencias)) / 3, 2));
         return $scatter;
     }

@@ -47,6 +47,11 @@ class Application_Model_Regra extends Application_Model_Abstract {
                       'v.id = t.id_variavel',
                       array('v.id AS id_variavel_objetiva',
                             'v.nome AS variavel_objetiva'))
+               ->join(array('um'=>'unidade_medida'),
+                            'um.id = v.id_unidade_medida',
+                      array('um.id AS id_unidade_medida',
+                            'um.nome AS unidade_medida',
+                            'um.sigla AS sigla_unidade_medida'))
                ->where("regra.id_projeto = {$idProjeto}")
                ->order("regra.id ASC");
         return $this->_dbTable->fetchAll($select);

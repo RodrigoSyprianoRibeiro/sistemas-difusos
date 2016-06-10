@@ -23,8 +23,8 @@
                         <?php foreach($this->variaveis as $variavel): ?>
                         <tr>
                             <td class="<?php echo $variavel->objetiva == 1 ? 'red' : 'blue'; ?>"><?php echo $variavel->nome; ?></td>
-                            <td class="center <?php echo $variavel->objetiva == 1 ? 'red' : 'blue'; ?>"><?php echo $variavel->inicio_universo." a ".$variavel->fim_universo; ?></td>
-                            <td class="center <?php echo $variavel->objetiva == 1 ? 'red' : 'blue'; ?>"><?php echo $variavel->unidade_medida; ?></td>
+                            <td class="center <?php echo $variavel->objetiva == 1 ? 'red' : 'blue'; ?>"><?php echo $variavel->inicio_universo." ".$variavel->sigla_unidade_medida." a ".$variavel->fim_universo." ".$variavel->sigla_unidade_medida; ?></td>
+                            <td class="center <?php echo $variavel->objetiva == 1 ? 'red' : 'blue'; ?>"><?php echo $variavel->unidade_medida." (".$variavel->sigla_unidade_medida.")"; ?></td>
                             <td class="center <?php echo $variavel->objetiva == 1 ? 'red' : 'blue'; ?>"><i class="ace-icon fa <?php echo $variavel->objetiva == 1 ? 'fa-check-circle-o' : 'fa-circle-o'; ?>"></i></td>
                             <td class="center">
                                 <a href="" class="red remove-variavel" data-rel="tooltip" title="Remover">

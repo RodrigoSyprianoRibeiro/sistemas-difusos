@@ -55,6 +55,7 @@ class Default_TermoController extends Aplicacao_Controller_Action {
                                             'inicio_universo' => $variavel->inicio_universo,
                                             'fim_universo' => $variavel->fim_universo,
                                             'unidade_medida' => $variavel->unidade_medida,
+                                            'sigla_unidade_medida' => $variavel->sigla_unidade_medida,
                                             'objetiva' => $variavel->objetiva,
                                             'termos' => $modelTermo->getTermos($variavel->id));
             }

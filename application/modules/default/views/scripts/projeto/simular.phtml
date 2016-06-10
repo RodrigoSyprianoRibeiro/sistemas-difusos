@@ -14,7 +14,7 @@
                     <?php foreach($this->variaveis as $variavel): ?>
                         <h4 class="widget-title lighter <?php echo $variavel->objetiva == 1 ? 'red' : 'blue'; ?>">
                             <i class="ace-icon fa <?php echo $variavel->objetiva == 1 ? 'fa-check-circle-o red' : 'fa-circle-o blue'; ?>"></i>
-                            <b><?php echo $variavel->nome; ?> (<?php echo $variavel->unidade_medida; ?>): </b> <?php echo $variavel->inicio_universo." a ".$variavel->fim_universo; ?>
+                            <b><?php echo $variavel->nome; ?>: </b> <?php echo $variavel->inicio_universo." ".$variavel->sigla_unidade_medida." a ".$variavel->fim_universo." ".$variavel->sigla_unidade_medida; ?>
                             <?php if($variavel->objetiva != 1): ?>
                                 <input type="text" id="valor-<?php echo $variavel->id; ?>" value="<?php echo $variavel->inicio_universo; ?>" class="input-sm valor-variaveis" />
                             <?php else: ?>

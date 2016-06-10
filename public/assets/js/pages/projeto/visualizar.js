@@ -85,7 +85,7 @@ jQuery(function($) {
         'nome' : $('#nome').val(),
         'inicio_universo' : $('#inicio_universo').val(),
         'fim_universo' : $('#fim_universo').val(),
-        'unidade_medida' : $('#unidade_medida').val(),
+        'id_unidade_medida' : $('#id_unidade_medida').val(),
         'objetiva' : $('#objetiva').is(':checked') ? 1 : 0
       };
       $.ajax({
@@ -130,7 +130,7 @@ jQuery(function($) {
       mensagem += '- Valor de Início deve ser menor do que o Fim <br/>';
       erro = 1;
     }
-    if ($('#variavel-form #unidade_medida').val() === "") {
+    if ($('#variavel-form #id_unidade_medida').val() === "") {
       mensagem += '- Unidade Medida <br/>';
       erro = 1;
     }
@@ -514,7 +514,7 @@ jQuery(function($) {
         htmlTermos += "</tbody>";
         $("#table-termos-consequentes").html(htmlTermos);
 
-        $("#centroide").html(response.centroide + " %");
+        $("#centroide").html(response.centroide + " " + response.unidademedida);
         $("#regras-pertinencia").removeClass('hide');
         montarGrafico(response.grafico);
         mostraMensagem("Sucesso", "Inferência realizada.");
@@ -533,7 +533,7 @@ jQuery(function($) {
   function montarGrafico(response) {
     $(".grafico-variavel-objetiva").each( function(index, value) {
         var id = $(this).attr("id");
-        geraGraficoLineBasic("grafico-variavel-objetiva-"+id, response.variavel, response.min, response.max, response.series);
+        geraGraficoLineBasic("grafico-variavel-objetiva-"+id, response.variavel, response.min, response.max, response.series, true);
     });
   };
   // Fim Montar Gráfico ////////////////////////////////////////////////////////

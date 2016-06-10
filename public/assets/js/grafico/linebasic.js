@@ -1,10 +1,12 @@
-function geraGraficoLineBasic(id, variavel, min, max, series) {
+function geraGraficoLineBasic(id, variavel, min, max, series, centroide) {
+    var header = centroide !== true ? '<span style="font-size:10px"><b>Valor:</b> {point.key} ' + variavel.sigla_unidade_medida + '</span><table>' : '';
+    var legenda = centroide === true ? '<b>{point.x}</b>' + variavel.sigla_unidade_medida : '<b>{point.y}</b> pertinência';
     $('.' + id).highcharts({
         title: {
-            text: variavel
+            text: variavel.nome
             },
         subtitle: {
-            text: 'Termos da variável ' + variavel
+            text: 'Termos da variável ' + variavel.nome
         },
         xAxis: {
             min: min,
@@ -18,9 +20,9 @@ function geraGraficoLineBasic(id, variavel, min, max, series) {
             }
         },
         tooltip: {
-            headerFormat: '<span style="font-size:10px"><b>Valor:</b> {point.key}</span><table>',
+            headerFormat: header,
             pointFormat:  '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                          '<td style="padding:0"><b>{point.y}</b> pertinência</td></tr>',
+                          '<td style="padding:0">' + legenda + '</td></tr>',
             footerFormat: '</table>',
             shared: true,
             useHTML: true
