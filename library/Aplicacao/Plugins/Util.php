@@ -86,6 +86,7 @@ class Aplicacao_Plugins_Util extends Zend_Controller_Plugin_Abstract
     public static function pontoCentroideGrafico($termosConsequentes, $pertinenciasTermosConsequentes, $centroide) {
         $scatter = array();
         $scatter['name'] = 'Centróide';
+        $scatter['marker'] = array('enabled' => true);
         $scatter['data'][] = array($centroide, 1);
         $scatter['data'][] = array($centroide, 0);
         return $scatter;
