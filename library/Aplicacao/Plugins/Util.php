@@ -84,21 +84,10 @@ class Aplicacao_Plugins_Util extends Zend_Controller_Plugin_Abstract
     }
 
     public static function pontoCentroideGrafico($termosConsequentes, $pertinenciasTermosConsequentes, $centroide) {
-        $pertinencias = array();
-        foreach ($termosConsequentes as $termo) {
-            if ($pertinenciasTermosConsequentes[$termo->id_variavel][$termo->id] > 0) {
-                $pertinencias[] = $pertinenciasTermosConsequentes[$termo->id_variavel][$termo->id];
-            }
-        }
-        $valorEixoY = 0;
-        if (count($pertinencias) > 0) {
-            $valorEixoY = round((array_sum($pertinencias) / count($pertinencias)) / 3, 2);
-        }
         $scatter = array();
         $scatter['name'] = 'Centróide';
-        $scatter['type'] = 'scatter';
-        $scatter['marker'] = array('enabled' => true);
-        $scatter['data'][] = array($centroide, $valorEixoY);
+        $scatter['data'][] = array($centroide, 1);
+        $scatter['data'][] = array($centroide, 0);
         return $scatter;
     }
 }
