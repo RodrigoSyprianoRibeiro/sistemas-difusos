@@ -13,19 +13,19 @@
                             <span class="lbl"> Objetiva</span>
                         </div>
                     </div>
-                    <div class="form-group col-sm-3">
+                    <div class="form-group col-sm-6">
                         <label for="inicio_universo">Início Universo:</label>
                         <div>
                             <input type="text" id="inicio_universo" class="input-sm" />
                         </div>
                     </div>
-                    <div class="form-group col-sm-3">
+                    <div class="form-group col-sm-6">
                         <label for="fim_universo">Fim Universo:</label>
                         <div>
                             <input type="text" id="fim_universo" class="input-sm" />
                         </div>
                     </div>
-                    <div class="form-group col-sm-6">
+                    <div class="form-group col-sm-12">
                         <label for="unidade_medida">Unidade Medida:</label>
                         <div>
                             <select id="id_unidade_medida" data-placeholder="Unidade Medida" required >
@@ -57,7 +57,7 @@
 <script type="text/javascript">
   $('#cadastrar-variavel').removeClass('disabled');
   $('#cancelar-variavel').removeClass('disabled');
-  $('#inicio_universo').ace_spinner({value:0, min:-1000, step:1, btn_up_class:'btn-info' , btn_down_class:'btn-info'});
-  $('#fim_universo').ace_spinner({value:0, min:-1000, step:1, btn_up_class:'btn-info' , btn_down_class:'btn-info'});
+  $('#inicio_universo').ace_spinner({value:0, min:-10000, max:10000, step:1, btn_up_class:'btn-info' , btn_down_class:'btn-info'});
+  $('#fim_universo').ace_spinner({value:0, min:-10000, max:10000, step:1, btn_up_class:'btn-info' , btn_down_class:'btn-info'});
   $("#id_unidade_medida").css('width','100%').select2({allowClear:true});
 </script>
