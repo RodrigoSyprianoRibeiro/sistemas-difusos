@@ -1,6 +1,6 @@
 function geraGraficoLineBasic(id, variavel, min, max, series, centroide) {
     var header = centroide !== true ? '<span style="font-size:10px"><b>Valor:</b> {point.key} ' + variavel.sigla_unidade_medida + '</span><table>' : '';
-    var legenda = centroide === true ? '<b>{point.x}</b>' + variavel.sigla_unidade_medida : '<b>{point.y}</b> pertinência';
+    var legenda = centroide === true ? '<b>{point.x}</b> ' + variavel.sigla_unidade_medida : '<b>{point.y}</b> pertinência';
     $('.' + id).highcharts({
         title: {
             text: variavel.nome
