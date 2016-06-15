@@ -38,18 +38,19 @@
             </script>
 
             <div class="navbar-container" id="navbar-container">
-                <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
-                    <span class="sr-only">Toggle sidebar</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-
                 <div class="navbar-header pull-left">
                     <a href="<?php echo $this->baseUrl("/"); ?>" class="navbar-brand">
                         <small>
-                            <img src="<?php echo $this->baseUrl("assets/images/favicon.ico"); ?>" width="50" height="50" />
+                            <img src="<?php echo $this->baseUrl("assets/images/logo.png"); ?>" />
                             Sistemas Difusos
+                        </small>
+                    </a>
+                </div>
+
+                <div class="navbar-header pull-right">
+                    <a href="https://github.com/RodrigoSyprianoRibeiro/sistemas-difusos" target="_blank" class="navbar-brand">
+                        <small>
+                            <i class="fa fa-github"></i> GitHub
                         </small>
                     </a>
                 </div>
@@ -61,7 +62,37 @@
                 try{ace.settings.check('main-container' , 'fixed')}catch(e){}
             </script>
 
-            <?php echo $this->Layout()->content; ?>
+            <div class="main-content">
+                <div class="main-content-inner">
+
+                    <?php echo $this->Layout()->content; ?>
+
+                    <div class="page-content">
+                        <div class="row center">
+                            <div class="col-xs-12">
+                                <div class="clearfix form-actions">
+                                    <a href="http://php.net/" target="_blank">
+                                        <img src="<?php echo $this->baseUrl("assets/images/php.png"); ?>" />
+                                    </a>
+                                    <a href="http://framework.zend.com/" target="_blank">
+                                        <img src="<?php echo $this->baseUrl("assets/images/zf.png"); ?>" />
+                                    </a>
+                                    <a href="https://www.mysql.com/" target="_blank">
+                                        <img src="<?php echo $this->baseUrl("assets/images/mysql.png"); ?>" />
+                                    </a>
+                                    <a href="https://github.com/" target="_blank">
+                                        <img src="<?php echo $this->baseUrl("assets/images/github.png"); ?>" />
+                                    </a>
+                                    <a href="https://www.digitalocean.com/" target="_blank">
+                                        <img src="<?php echo $this->baseUrl("assets/images/digital_ocean.png"); ?>" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.page-content -->
+
+                </div>
+            </div><!-- /.main-content -->
 
             <div class="widget-box-overlay carregando">
                 <i class=" ace-icon loading-icon fa fa-spinner fa-spin fa-2x white"></i>
