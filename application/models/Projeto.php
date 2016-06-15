@@ -33,7 +33,7 @@ class Application_Model_Projeto extends Application_Model_Abstract {
         $modelRegraTermoAntecedente = new Application_Model_RegraTermoAntecedente();
 
         $idProjeto = $data['id_projeto'];
-        $valoresVariaveis = array_filter($data['variaveis']);
+        $valoresVariaveis = array_filter($data['variaveis'], 'strlen');
 
         $regras = $modelRegra->getRegras($idProjeto);
 

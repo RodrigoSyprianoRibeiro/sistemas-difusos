@@ -1,10 +1,7 @@
 jQuery(function($) {
 
   $('#fuelux-wizard-container')
-  .ace_wizard({
-    //step: 2 //optional argument. wizard will jump to step "2" at first
-    //buttons: '.wizard-actions:eq(0)'
-  })
+  .ace_wizard()
   .on('actionclicked.fu.wizard' , function(e, info){
     $('html, body').animate({ scrollTop: $("body").offset().top }, 'slow');
     if(info.step === 1) {
@@ -31,15 +28,7 @@ jQuery(function($) {
         carregarSimulacao();
       }
     }
-  })
-  .on('finished.fu.wizard', function(e, info){
-    inferir();
-  }).on('stepclick.fu.wizard', function(e){
-    //e.preventDefault();//this will prevent clicking and selecting steps
   });
-
-  $('#modal-wizard-container').ace_wizard();
-  $('#modal-wizard .wizard-actions .btn[data-dismiss=modal]').removeAttr('disabled');
 
   carregarVariaveis();
 
@@ -476,11 +465,15 @@ jQuery(function($) {
   // Fim Validar Regra /////////////////////////////////////////////////////////
 
   // Inferir ///////////////////////////////////////////////////////////////////
+  $(document).on('click', '.inferir', function(e){
+    e.preventDefault();
+    inferir();
+  });
   function inferir() {
     var variaveis = [];
     $(".valor-variaveis").each( function(index, value) {
       var id = parseInt($(this).attr("id").replace('valor-', ''));
-      variaveis[id] = $(this).val() + "";
+      variaveis[id] = parseFloat($(this).val());
     });
     var dados = {
       'id_projeto' : $('#id_projeto').val(),
