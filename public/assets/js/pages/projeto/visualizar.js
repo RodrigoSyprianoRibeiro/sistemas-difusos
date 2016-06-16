@@ -7,7 +7,7 @@ jQuery(function($) {
     if(info.step === 1) {
       if (validarVariaveis() === false) {
         e.preventDefault();
-        $(".carregando").addClass('hide');
+        fechaCarregando();
       } else {
         carregarTermos();
       }
@@ -15,7 +15,7 @@ jQuery(function($) {
     if(info.step === 2 && info.direction === 'next') {
       if (validarTermos() === false) {
         e.preventDefault();
-        $(".carregando").addClass('hide');
+        fechaCarregando();
       } else {
         carregarRegras();
       }
@@ -23,7 +23,7 @@ jQuery(function($) {
     if(info.step === 3 && info.direction === 'next') {
       if (validarRegra() === false) {
         e.preventDefault();
-        $(".carregando").addClass('hide');
+        fechaCarregando();
       } else {
         carregarSimulacao();
       }
@@ -186,7 +186,7 @@ jQuery(function($) {
       data: {id_projeto: $('#id_projeto').val()},
       async: false,
       beforeSend: function(){
-        $(".carregando").removeClass('hide');
+        abreCarregando();
       },
       success: function(response) {
         if (response === 'sucesso') {
@@ -347,7 +347,7 @@ jQuery(function($) {
       data: {id_projeto: $('#id_projeto').val()},
       async: false,
       beforeSend: function(){
-        $(".carregando").removeClass('hide');
+        abreCarregando();
       },
       success: function(response) {
         if (response === 'sucesso') {
@@ -383,7 +383,7 @@ jQuery(function($) {
       data: dados,
       async: false,
       beforeSend: function(){
-        $(".carregando").removeClass('hide');
+        abreCarregando();
       },
       success: function(response) {
         carregarRegras();
@@ -450,7 +450,7 @@ jQuery(function($) {
       data: {id_projeto: $('#id_projeto').val()},
       async: false,
       beforeSend: function(){
-        $(".carregando").removeClass('hide');
+        abreCarregando();
       },
       success: function(response) {
         if (response === 'sucesso') {
@@ -486,8 +486,9 @@ jQuery(function($) {
       data: dados,
       async: false,
       beforeSend: function(){
-        $(".carregando").removeClass('hide');
+        abreCarregando();
         $("#regras-pertinencia").addClass('hide');
+        $("#grafico-final").addClass('hide');
         $("#table-regras-pertinencia").html("");
         $("#table-termos-consequentes").html("");
         $("#centroide").html("?");
@@ -509,6 +510,7 @@ jQuery(function($) {
 
         $("#centroide").html(response.centroide + " " + response.unidademedida);
         $("#regras-pertinencia").removeClass('hide');
+        $("#grafico-final").removeClass('hide');
         montarGrafico(response.grafico);
         mostraMensagem("Sucesso", "Inferência realizada.");
       },
@@ -516,7 +518,7 @@ jQuery(function($) {
         modalAviso("Ocorreu algum erro no processo de inferência.");
       },
       complete: function(){
-        $(".carregando").addClass('hide');
+        fechaCarregando();
       }
     });
   }
@@ -530,6 +532,16 @@ jQuery(function($) {
     });
   };
   // Fim Montar Gráfico ////////////////////////////////////////////////////////
+
+  function abreCarregando() {
+    $("body").addClass('overflow-scroll');
+    $(".carregando").removeClass('hide');
+  };
+
+  function fechaCarregando() {
+    $("body").removeClass('overflow-scroll');
+    $(".carregando").addClass('hide');
+  };
 
   function mostraMensagem(title, text) {
     $.gritter.add({
