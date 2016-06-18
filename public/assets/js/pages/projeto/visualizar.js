@@ -51,9 +51,10 @@ jQuery(function($) {
   // Nova Variável /////////////////////////////////////////////////////////////
   $(document).on('click', '.nova-variavel', function(e){
     e.preventDefault();
+    var id_projeto = parseInt($('#id_projeto').val());
     bootbox.dialog({
       title: "<h4 class='blue bigger'>Nova Variável</h4>",
-      message: $('<div>Carregando...</div>').load(BASEURL + 'variavel/novo')
+      message: $('<div>Carregando...</div>').load(BASEURL + 'variavel/novo/id/' + id_projeto)
     });
   });
 
@@ -203,10 +204,11 @@ jQuery(function($) {
   // Novo Termo ////////////////////////////////////////////////////////////////
   $(document).on('click', '.novo-termo', function(e){
     e.preventDefault();
-    $('#id_variavel').val(parseInt($(this).find('input[type="hidden"]').val()));
+    var id_variavel = parseInt($(this).find('input[type="hidden"]').val());
+    $('#id_variavel').val(id_variavel);
     bootbox.dialog({
       title: "<h4 class='blue bigger'>Novo Termo</h4>",
-      message: $('<div>Carregando...</div>').load(BASEURL + 'termo/novo')
+      message: $('<div>Carregando...</div>').load(BASEURL + 'termo/novo/id/' + id_variavel)
     });
   });
 

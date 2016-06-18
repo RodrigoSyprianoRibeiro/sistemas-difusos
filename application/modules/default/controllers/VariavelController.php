@@ -4,8 +4,16 @@ class Default_VariavelController extends Aplicacao_Controller_Action {
 
     public function novoAction() {
         $this->_helper->layout->disableLayout();
-        $modelUnidadeMedida = new Application_Model_UnidadeMedida();
-        $this->view->unidades_medidas = $modelUnidadeMedida->getUnidadesMedidas();
+
+        $id = (int) $this->_request->getParam("id",0);
+        $modelProjeto = new Application_Model_Projeto();
+        $projeto = $modelProjeto->find($id);
+
+        if ($projeto) {
+            $this->view->projeto = $projeto;
+            $modelUnidadeMedida = new Application_Model_UnidadeMedida();
+            $this->view->unidades_medidas = $modelUnidadeMedida->getUnidadesMedidas();
+        }
     }
 
     public function salvarAction() {

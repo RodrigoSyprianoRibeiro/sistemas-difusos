@@ -1,4 +1,10 @@
 <div class="widget-box">
+    <div class="widget-header widget-header-flat">
+        <h4 class="widget-title lighter <?php echo $this->variavel->objetiva == 1 ? 'red' : 'blue'; ?>">
+            <i class="ace-icon fa <?php echo $this->variavel->objetiva == 1 ? 'fa-check-circle-o red' : 'fa-circle-o blue'; ?>"></i>
+            <b><?php echo $this->variavel->nome; ?>: </b> <?php echo $this->variavel->inicio_universo." ".$this->variavel->sigla_unidade_medida." a ".$this->variavel->fim_universo." ".$this->variavel->sigla_unidade_medida; ?>
+        </h4>
+    </div>
     <div class="widget-body">
         <div class="widget-main no-padding">
             <form id="termo-form" method="post" class="form-horizontal" >
@@ -54,8 +60,8 @@
 <script type="text/javascript">
   $('#cadastrar-termo').removeClass('disabled');
   $('#cancelar-termo').removeClass('disabled');
-  $('#inicio_suporte').ace_spinner({value:0, min:-10000, max:10000, step:0.5, btn_up_class:'btn-info' , btn_down_class:'btn-info'});
-  $('#fim_suporte').ace_spinner({value:0, min:-10000, max:10000, step:0.5, btn_up_class:'btn-info' , btn_down_class:'btn-info'});
-  $('#inicio_nucleo').ace_spinner({value:0, min:-10000, max:10000, step:0.5, btn_up_class:'btn-info' , btn_down_class:'btn-info'});
-  $('#fim_nucleo').ace_spinner({value:0, min:-10000, max:10000, step:0.5, btn_up_class:'btn-info' , btn_down_class:'btn-info'});
+  $('#inicio_suporte').ace_spinner({value:<?php echo $this->variavel->inicio_universo; ?>, min:<?php echo $this->variavel->inicio_universo; ?>, max:<?php echo $this->variavel->fim_universo; ?>, step:0.5, btn_up_class:'btn-info' , btn_down_class:'btn-info'});
+  $('#fim_suporte').ace_spinner({value:<?php echo $this->variavel->inicio_universo; ?>, min:<?php echo $this->variavel->inicio_universo; ?>, max:<?php echo $this->variavel->fim_universo; ?>, step:0.5, btn_up_class:'btn-info' , btn_down_class:'btn-info'});
+  $('#inicio_nucleo').ace_spinner({value:<?php echo $this->variavel->inicio_universo; ?>, min:<?php echo $this->variavel->inicio_universo; ?>, max:<?php echo $this->variavel->fim_universo; ?>, step:0.5, btn_up_class:'btn-info' , btn_down_class:'btn-info'});
+  $('#fim_nucleo').ace_spinner({value:<?php echo $this->variavel->inicio_universo; ?>, min:<?php echo $this->variavel->inicio_universo; ?>, max:<?php echo $this->variavel->fim_universo; ?>, step:0.5, btn_up_class:'btn-info' , btn_down_class:'btn-info'});
 </script>

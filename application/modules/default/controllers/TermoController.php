@@ -4,6 +4,14 @@ class Default_TermoController extends Aplicacao_Controller_Action {
 
     public function novoAction() {
         $this->_helper->layout->disableLayout();
+
+        $modelVariavel = new Application_Model_Variavel();
+        $id = (int) $this->_request->getParam("id",0);
+        $variavel = $modelVariavel->getVariavel($id);
+
+        if ($variavel) {
+            $this->view->variavel = $variavel;
+        }
     }
 
     public function salvarAction() {
