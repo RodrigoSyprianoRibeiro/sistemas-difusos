@@ -158,7 +158,7 @@
 				this.$prevBtn.attr('disabled', (firstStep === true || canMovePrev === false));
 			}
 
-			this.$nextBtn.attr('disabled', (lastStep === true || canMovePrev === false));
+			this.$nextBtn.attr('disabled', (lastStep === true));
 
 			// change button text of last step, if specified
 			var last = this.$nextBtn.attr('data-last');
